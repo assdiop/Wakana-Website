@@ -1,15 +1,14 @@
-// components/header/header.component.ts
-import { Component, HostListener } from '@angular/core';
+import {Component, HostListener,OnInit, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {fromEvent} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl:'./header.component.html'
-   
-,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './header.component.html',
   styles: [`
     :host {
       position: fixed;
@@ -20,25 +19,44 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
   `]
 })
-export class HeaderComponent {
-  isMobileMenuOpen = false;
+export class HeaderComponent  implements  OnInit {
+  //utlisation des signals pour gerer le menu burger
+  isMobileMenuOpen = signal(false);
+  scrolled = signal(false);
 
   toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    this.isMobileMenuOpen.set(!this.isMobileMenuOpen());
   }
 
-  scrolled = false;  // Variable pour suivre l'état du défilement
-  topBarVisible = true;  // Variable pour suivre la visibilité de la barre du haut
-
-  // Écouter l'événement de défilement
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event): void {
-    const scrollTop = window.scrollY;
-
-    // Ajuster la visibilité et la taille de la barre de navigation selon le défilement
-    this.scrolled = scrollTop > 50; // Si on a défilé de 50px, on applique des styles différents
+  //fonction pour fermer le menu
+  closeMobileMenu() {
+    this.isMobileMenuOpen.set(false);
   }
 
+  ngOnInit() {
+    // Écoute l'événement de scroll pour changer l'état de `scrolled`
+    fromEvent(window, 'scroll')
+      // .pipe(takeUntilDestroyed(this))
+      .subscribe(() => {
+        this.scrolled.set(window.scrollY > 50);
+      });
+  }
 
+  //fonction pour gerer le lien entre scroll entre les composants
+  navigateToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
+  // ngOnDestroy() {
+  //   // Pas besoin de désinscrire manuellement grâce à `takeUntilDestroyed()`
+  // }
 }
+
+
+
+
+
+

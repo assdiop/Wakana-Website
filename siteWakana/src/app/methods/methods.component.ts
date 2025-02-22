@@ -1,4 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+  AnimationMetadata
+} from '@angular/animations';
 
 interface Service {
   name: string;
@@ -8,56 +18,29 @@ interface Service {
 @Component({
   selector: 'app-methods',
   standalone: true,
-  template: `
-    <!-- Ajout du CDN Font Awesome dans index.html -->
-    <div class="min-h-screen relative text-white">
-      <!-- Image de fond -->
-      <div class="absolute inset-0">
-        <img 
-          src="https://img.freepik.com/photos-premium/jeune-femme-lunettes-utilise-tablette-dans-bureau-moderne_659722-3558.jpg?w=740"
-          alt="Background" 
-          class="w-full h-full object-cover"
-        >
-        <div class="absolute inset-0 bg-black/70"></div>
-      </div>
+  imports: [CommonModule],
+  animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(50px)' }),  // Départ plus bas
+        animate('0.8s cubic-bezier(0.3, 1.2, 0.3, 1)', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ]),
 
-      <!-- Contenu principal -->
-      <div class="relative z-10 container mx-auto px-6 py-12 flex">
-        <!-- Section texte (côté gauche) -->
-        <div class="w-1/2 pr-12">
-          <div class="mb-2">
-            <span class="text-pink-500 text-sm uppercase tracking-wider">Méthode</span>
-          </div>
-          <h1 class="text-5xl font-bold leading-tight mb-8">
-            Approche sectorielle centrée sur le métier de nos clients
-          </h1>
-          <p class="text-xl text-gray-300 leading-relaxed">
-            Obtenez bien plus qu'un simple service ou produit,
-            obtenez une solution sur mesure qui répond à vos
-            besoins spécifiques
-          </p>
-        </div>
+    trigger('staggerFade', [
+      transition(':enter', [
+        query('div', [
+          style({ opacity: 0, transform: 'scale(0.8)' }),  // Ajout d'un léger zoom-out
+          stagger(200, animate('0.5s ease-out', style({ opacity: 1, transform: 'scale(1)' })))
+        ], { optional: true })
+      ])
+    ])
+  ],
+  templateUrl:'./methods.component.html',
 
-        <!-- Grille de services (côté droit) -->
-        <div class="w-1/2">
-          <div class="grid grid-cols-4 gap-0.5 bg-blue-900/20">
-            @for (service of services; track service.name) {
-              <div class="group relative p-6 bg-black/80 transition-all duration-300 hover:bg-blue-900/20 border border-transparent hover:border-blue-500/30">
-                <div class="flex flex-col items-center text-center space-y-3">
-                  <div class="p-4">
-                    <i class="{{service.iconClass}} text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
-                  </div>
-                  <span class="text-sm font-medium text-blue-400">{{ service.name }}</span>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  `
 })
 export class MethodsComponent {
+  //notre tableau d objets Services
   services: Service[] = [
     { name: 'Audit', iconClass: 'fas fa-search' },
     { name: 'Conseil', iconClass: 'fas fa-users' },
@@ -72,4 +55,5 @@ export class MethodsComponent {
     { name: 'Data Warehouse', iconClass: 'fas fa-warehouse' },
     { name: 'Business Intelligence', iconClass: 'fas fa-brain' }
   ];
+
 }

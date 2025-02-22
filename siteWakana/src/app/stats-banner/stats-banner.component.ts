@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
-interface StatItem {
-  icon: string;
-  value: string;
-  label: string;
-}
+
 
 @Component({
   selector: 'app-stats-banner',
@@ -13,26 +9,33 @@ interface StatItem {
   styleUrls: ['./stats-banner.component.css']
 })
 export class StatsBannerComponent {
-  stats: StatItem[] = [
-    {
-      icon: 'fa-chart-line',
-      value: '+50',
-      label: 'Fonctionnalités'
-    },
-    {
-      icon: 'fa-users',
-      value: '+40',
-      label: 'Partenaires'
-    },
-    {
-      icon: 'fa-briefcase',
-      value: '+300',
-      label: 'Projets réalisés'
-    },
-    {
-      icon: 'fa-star',
-      value: '+515',
-      label: 'Feedback'
-    }
+  stats = [
+    { icon: 'fa-chart-line', value: 20, label: 'Fonctionnalités', animatedValue: 0 },
+    { icon: 'fa-users', value: 40, label: 'Partenaires', animatedValue: 0 },
+    { icon: 'fa-briefcase', value: 300, label: 'Projets réalisés', animatedValue: 0 },
+    { icon: 'fa-star', value: 515, label: 'Feedback', animatedValue: 0 }
   ];
+
+  ngOnInit() {
+    this.animateNumbers();
+  }
+//fonction qui gere l animation des chiffres
+  animateNumbers() {
+    this.stats.forEach(stat => {
+      let start = 0;
+      const end = stat.value;
+      const duration = 2000; // Animation en 2 secondes
+      const interval = 20;
+      const step = (end - start) / (duration / interval);
+
+      const counter = setInterval(() => {
+        start += step;
+        stat.animatedValue = Math.floor(start);
+        if (start >= end) {
+          stat.animatedValue = end;
+          clearInterval(counter);
+        }
+      }, interval);
+    });
+  }
 }

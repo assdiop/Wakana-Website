@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 interface ProjetsCard {
   id: string;
@@ -13,46 +14,60 @@ interface ProjetsCard {
   selector: 'app-projects',
   standalone: true,
   template: `
-    <div class="container mx-auto p-6">
-      <div class="grid grid-cols-4 gap-6">
+    <div class="container mx-auto px-6 py-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-12" [@fadeIn]>
+        Nos projets
+      </h2>
+
+      <!-- Responsive Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
         @for (card of serviceCards; track card.id) {
-          <div class="relative bg-white rounded-lg p-6 shadow-lg border border-gray-200 min-h-[400px]">
+          <div
+            class="relative bg-white rounded-lg p-6 shadow-lg border border-gray-200 min-h-[400px] transition-all duration-300 hover:shadow-xl"
+            [@fadeIn]
+          >
             <!-- Numéro avec forme -->
-            <div class="absolute -top-4 -left-4 flex items-center">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center">
               <div class="relative">
-                <div [class]="'w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold ' + card.numberColor">
+                <div [class]="'w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold ' + card.numberColor">
                   {{ card.id }}
                 </div>
-                <div [class]="'absolute -right-6 -bottom-3 w-16 h-8 transform rotate-45 ' + card.bgColor"></div>
               </div>
             </div>
 
             <!-- Contenu de la carte -->
-            <div class="mt-12">
-              <!-- Titre -->
-              <h2 class="text-[#2A3342] text-2xl font-bold mb-8">{{ card.title }}</h2>
-
-              <!-- Liste des éléments -->
-              <ul class="space-y-4">
+            <div class="mt-10 text-center">
+              <h2 class="text-[#2A3342] text-xl font-bold mb-6">{{ card.title }}</h2>
+              <ul class="space-y-4 text-sm">
                 @for (item of card.items; track item) {
-                  <li class="flex items-start">
+                  <li class="flex items-start justify-center text-gray-700 transition-all duration-300 hover:translate-x-1">
                     <span class="text-purple-600 mr-2 mt-1">✦</span>
-                    <span class="text-gray-700 text-sm leading-tight">{{ item }}</span>
+                    <span>{{ item }}</span>
                   </li>
                 }
               </ul>
-
-              <!-- Icône en bas -->
-              <div class="absolute bottom-6 left-6">
-                <i [class]="card.iconClass + ' text-3xl ' + card.bgColor"></i>
-              </div>
             </div>
           </div>
         }
       </div>
     </div>
-  `
+  `,
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({
+        opacity: 0,
+        transform: 'translateY(20px)'
+      })),
+      transition('void => *', [
+        animate('500ms ease-out', style({
+          opacity: 1,
+          transform: 'translateY(0)'
+        }))
+      ])
+    ])
+  ],
 })
+
 export class ProjectsComponent {
   serviceCards: ProjetsCard[] = [
     {
