@@ -42,10 +42,7 @@ interface Service {
 export class MethodsComponent {
   //notre tableau d objets Services
   services: Service[] = [
-    { name: 'Audit', iconClass: 'fas fa-search' },
-    { name: 'Conseil', iconClass: 'fas fa-users' },
     { name: 'Sécurité', iconClass: 'fas fa-shield' },
-    { name: 'Gouvernance', iconClass: 'fas fa-people-group' },
     { name: 'Développement', iconClass: 'fas fa-code' },
     { name: 'CRM', iconClass: 'fas fa-cube' },
     { name: 'Méthodologie', iconClass: 'fas fa-sitemap' },
@@ -53,7 +50,7 @@ export class MethodsComponent {
     { name: 'Technologie Web', iconClass: 'fas fa-laptop-code' },
     { name: 'Bases de données', iconClass: 'fas fa-database' },
     { name: 'Data Warehouse', iconClass: 'fas fa-warehouse' },
-    { name: 'Business Intelligence', iconClass: 'fas fa-brain' }
+
   ];
 
 }

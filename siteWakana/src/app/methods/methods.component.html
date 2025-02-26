@@ -1,4 +1,4 @@
-<div class="min-h-screen relative text-white">
+<div class="min-h-screen relative flex items-center justify-center text-white">
   <!-- Image de fond -->
   <div class="absolute inset-0">
     <img
@@ -9,36 +9,37 @@
     <div class="absolute inset-0 bg-black/70"></div>
   </div>
 
-  <!-- Contenu principal -->
-  <div class="relative z-10 container mx-auto px-6 py-12 flex flex-wrap md:flex-nowrap">
-    <!-- Section texte (côté gauche) -->
-    <div class="w-full md:w-1/2 pr-0 md:pr-12 text-center md:text-left" [@fadeInUp]>
-      <div class="mb-2">
-        <span class="text-yellow-600 text-sm uppercase tracking-wider">Méthode</span>
+  <!-- Contenu principal centré -->
+  <div class="relative z-10 w-full max-w-7xl px-6 py-12">
+    <div class="flex flex-wrap md:flex-nowrap items-center justify-center">
+      <!-- Section texte (côté gauche) -->
+      <div class="w-full md:w-1/2 pr-0 md:pr-12 text-center md:text-left" [@fadeInUp]>
+        <div class="mb-2">
+          <span class="text-yellow-600 text-sm uppercase tracking-wider font-bold"><span>__</span>  Méthode</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">Approche sectorielle centrée sur le métier de nos clients
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+         <span class="p-10"> Obtenez bien plus qu'un simple service ou produit,<br> obtenez une solution sur mesure qui répond à vos besoins spécifiques.</span>
+        </p>
       </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-        Approche sectorielle centrée sur le métier de nos clients
-      </h1>
-      <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
-        Obtenez bien plus qu'un simple service ou produit, obtenez une solution sur mesure qui répond à vos besoins spécifiques.
-      </p>
-    </div>
 
-    <!-- Grille de services (côté droit) -->
-    <div class="w-full md:w-1/2 mt-8 md:mt-0" [@staggerFade]>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 bg-blue-900/20">
-        @for (service of services; track service.name) {
-          <div
-            class="group relative p-4 bg-black/80 transition-all duration-300 hover:bg-blue-900/20 border border-transparent hover:border-blue-500/30"
-          >
-            <div class="flex flex-col items-center text-center space-y-2">
-              <div class="p-3">
-                <i class="{{service.iconClass}} text-xl md:text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+      <!-- Grille de services (côté droit) -->
+      <div class="w-full md:w-1/2 mt-8 md:mt-0" [@staggerFade]>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 bg-blue-900/20 p-4 rounded-lg">
+          @for (service of services; track service.name) {
+            <div
+              class="group relative p-4 bg-black/80 transition-all duration-300 hover:bg-blue-900/20 border border-transparent hover:border-blue-500/30"
+            >
+              <div class="flex flex-col items-center text-center space-y-2">
+                <div class="p-3">
+                  <i class="{{service.iconClass}} text-xl md:text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <span class="text-sm font-medium text-blue-400">{{ service.name }}</span>
               </div>
-              <span class="text-sm font-medium text-blue-400">{{ service.name }}</span>
             </div>
-          </div>
-        }
+          }
+        </div>
       </div>
     </div>
   </div>

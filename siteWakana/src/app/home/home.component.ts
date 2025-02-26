@@ -8,6 +8,7 @@ import { NewsComponent } from '../news/news.component';
 import { PartnersComponent } from '../partners/partners.component';
 import { VideoBannerComponent } from '../video-banner/video-banner.component';
 import { StatsBannerComponent } from '../stats-banner/stats-banner.component';
+import {RealisationsComponent} from "../realisations/realisations.component";
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,11 @@ import { StatsBannerComponent } from '../stats-banner/stats-banner.component';
     SolutionsComponent,
     ProjectsComponent,
     MethodsComponent,
+    RealisationsComponent,
     NewsComponent,
     PartnersComponent,
-    StatsBannerComponent
+    StatsBannerComponent,
+
   ],
   templateUrl: 'home.component.html',
   styleUrls:['home.component.css']

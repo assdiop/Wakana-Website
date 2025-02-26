@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
 
 interface ProjetsCard {
   id: string;
@@ -13,56 +13,30 @@ interface ProjetsCard {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  template: `
-    <div class="container mx-auto px-6 py-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-12" [@fadeIn]>
-        Nos projets
-      </h2>
+  templateUrl: './projects.component.html',
+  styleUrls: ['./projects.component.css'],
 
-      <!-- Responsive Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-        @for (card of serviceCards; track card.id) {
-          <div
-            class="relative bg-white rounded-lg p-6 shadow-lg border border-gray-200 min-h-[400px] transition-all duration-300 hover:shadow-xl"
-            [@fadeIn]
-          >
-            <!-- Numéro avec forme -->
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center">
-              <div class="relative">
-                <div [class]="'w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold ' + card.numberColor">
-                  {{ card.id }}
-                </div>
-              </div>
-            </div>
-
-            <!-- Contenu de la carte -->
-            <div class="mt-10 text-center">
-              <h2 class="text-[#2A3342] text-xl font-bold mb-6">{{ card.title }}</h2>
-              <ul class="space-y-4 text-sm">
-                @for (item of card.items; track item) {
-                  <li class="flex items-start justify-center text-gray-700 transition-all duration-300 hover:translate-x-1">
-                    <span class="text-purple-600 mr-2 mt-1">✦</span>
-                    <span>{{ item }}</span>
-                  </li>
-                }
-              </ul>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  `,
   animations: [
-    trigger('fadeIn', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(20px)'
-      })),
-      transition('void => *', [
-        animate('500ms ease-out', style({
-          opacity: 1,
-          transform: 'translateY(0)'
-        }))
+    // Animation de fade-in avec stagger effect
+    trigger('staggerFadeIn', [
+      transition(':enter', [
+        query('.card', [
+          style({ opacity: 0, transform: 'translateY(50px)' }),
+          stagger(150, [
+            animate('700ms cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+              style({ opacity: 1, transform: 'translateY(0)' })
+            )
+          ])
+        ])
+      ])
+    ]),
+
+    // Animation de flip 3D
+    trigger('flipCard', [
+      state('default', style({ transform: 'rotateY(0)' })),
+      state('flipped', style({ transform: 'rotateY(180deg)' })),
+      transition('default <=> flipped', [
+        animate('600ms ease-in-out')
       ])
     ])
   ],
@@ -79,15 +53,14 @@ export class ProjectsComponent {
         'Gestion des cartes professionnelles (HCR)'
       ],
       iconClass: 'fas fa-shield-alt',
-      bgColor: 'text-pink-300',
-      numberColor: 'bg-pink-300'
+      bgColor: 'bg-purple-600',
+      numberColor: 'bg-purple-600',
     },
     {
       id: '02',
       title: 'APPLICATIONS',
       items: [
         'Système de Lecture et d\'Authentification Biométrique (SYLAB)',
-        'SYLAB : CNDS - IPRES'
       ],
       iconClass: 'fas fa-network-wired',
       bgColor: 'text-purple-700',
@@ -115,4 +88,14 @@ export class ProjectsComponent {
       numberColor: 'bg-purple-700'
     }
   ];
+
+  flippedStates: Record<string, string> = {};
+
+  constructor() {
+    this.serviceCards.forEach(card => this.flippedStates[card.id] = 'default');
+  }
+
+  toggleFlip(cardId: string): void {
+    this.flippedStates[cardId] = this.flippedStates[cardId] === 'default' ? 'flipped' : 'default';
+  }
 }

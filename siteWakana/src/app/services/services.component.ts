@@ -12,7 +12,7 @@ export class ServicesComponent {
     {
       title: 'Audit – Conseil',
       description: 'Conseil et audit en transformation digitale.',
-      image: 'assets/images/audit.jpg'
+      image: 'assets/images/img6.jpg'
     },
     {
       title: 'Ingénierie IT',

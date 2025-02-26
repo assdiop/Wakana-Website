@@ -22,9 +22,10 @@ import { Component } from '@angular/core';
 })
 export class PartnersComponent {
   partners = [
-    { name: 'UCAD', logo: 'assets/images/logoucad.webp' },
-    { name: 'SENTER', logo: 'assets/images/Senterlogo.png' },
-    { name: 'BRT', logo: 'assets/images/logoBrt.jpg' },
-    { name: 'ADEPME', logo: 'assets/images/logoadepme.png' }
+    { name: 'TER', logo: 'assets/images/ter.png' },
+    { name: 'SENTER', logo: 'assets/images/pl.png' },
+    { name: 'SETER', logo: 'assets/images/seter.png' },
+    // { name: 'SOLIMUS', logo: 'assets/images/solimus.png' },
+    { name: 'AMCHAM', logo: 'assets/images/amcham_hd.jpeg' }
   ];
 }

@@ -1,39 +1,37 @@
 <!-- Top Bar (Visible uniquement sur Desktop) -->
-@if (!scrolled()) {
-  <div class="hidden lg:block bg-dark text-white px-5 py-3 fixed top-0 left-0 w-full z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Réseaux sociaux -->
-      <div class="flex items-center space-x-4 ml-10">
-        <a href="#" class="transition-colors hover:animate-bounce">
-          <i class="fa-brands fa-facebook-f"></i>
-        </a>
-        <a href="#" class="transition-colors hover:animate-bounce">
-          <i class="fa-brands fa-linkedin-in"></i>
-        </a>
-        <a href="#" class="transition-colors hover:animate-bounce">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-      </div>
+<div *ngIf="!scrolled()" class="hidden lg:block bg-[#0190BD] text-white px-5 py-3 fixed top-0 left-0 w-full z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Réseaux sociaux -->
+    <div class="flex items-center space-x-4 ml-10">
+      <a href="#" class="transition-colors hover:animate-bounce">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+      <a href="#" class="transition-colors hover:animate-bounce">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="#" class="transition-colors hover:animate-bounce">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </div>
 
-      <!-- Contact -->
-      <div class="flex items-center space-x-6">
-        <a href="mailto:contact@synapsys.sn" class="flex items-center space-x-2">
-          <i class="fa-solid fa-envelope text-[#0E80F6]"></i>
-          <span>contactsynapsys.sn</span>
-        </a>
-        <a href="tel:+221338588630" class="flex items-center space-x-2 hover:text-blue-400 transition-colors">
-          <i class="fa-solid fa-phone text-[#0E80F6]"></i>
-          <span>+221 33 858 86 30</span>
-        </a>
-      </div>
+    <!-- Contact -->
+    <div class="flex items-center space-x-6">
+      <a href="mailto:contact@synapsys.sn" class="flex items-center space-x-2">
+        <i class="fa-solid fa-envelope text-white"></i>
+        <span>contactsynapsys.sn</span>
+      </a>
+      <a href="tel:+221338588630" class="flex items-center space-x-2 hover:text-blue-400 transition-colors">
+        <i class="fa-solid fa-phone text-[#0190BD]"></i>
+        <span>+221 33 858 86 30</span>
+      </a>
     </div>
   </div>
-}
+</div>
 
 <!-- Navbar principale -->
-<nav [ngClass]="{'bg-[#1B1464]': !scrolled(), 'bg-black': scrolled()}"
+<nav [ngClass]="{'bg-[#FFFFFF]': !scrolled(), 'bg-white': scrolled()}"
      [ngStyle]="{'top': scrolled() ? '0' : '50px'}"
-     class="fixed left-0 w-full text-white py-5 transition-all duration-300 shadow-lg z-40">
+     class="fixed left-0 w-full text-[#0190BD] py-5 transition-all duration-300 shadow-lg z-40">
 
   <div class="container mx-auto px-4 flex justify-between items-center">
     <!-- Logo -->
@@ -43,52 +41,55 @@
 
     <!-- Menu Desktop (Visible à partir de lg) -->
     <div class="hidden lg:flex items-center space-x-8">
-      <a (click)="navigateToSection('home')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+      <a (click)="navigateToSection('home')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Accueil
       </a>
-      <a (click)="navigateToSection('hero')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+      <a (click)="navigateToSection('hero')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Présentation
       </a>
-      <a (click)="navigateToSection('services')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+      <a (click)="navigateToSection('services')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Services
       </a>
-      <a (click)="navigateToSection('methods')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
-        Methodes
+      <a (click)="navigateToSection('methods')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
+        Méthodes
       </a>
-      <a (click)="navigateToSection('solutions')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+      <a (click)="navigateToSection('solutions')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Solutions
       </a>
-      <a (click)="navigateToSection('projects')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+      <a (click)="navigateToSection('projects')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Projets
       </a>
-      <a (click)="navigateToSection('news')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
-        Actualités
+      <a (click)="navigateToSection('realisations')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
+        Realisations
       </a>
-      <a (click)="navigateToSection('partners')" class="hover:text-[#FF3366] transition-colors font-bold cursor-pointer">
+<!--      <a (click)="navigateToSection('news')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">-->
+<!--        Actualités-->
+<!--      </a>-->
+      <a (click)="navigateToSection('partners')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
         Partenaires
       </a>
     </div>
 
     <!-- Bouton Menu Burger pour Mobile et Tablette -->
     <button class="lg:hidden focus:outline-none" (click)="toggleMobileMenu()">
-      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      <svg class="w-8 h-8 text-[#0190BD]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
   </div>
 
   <!-- Menu Mobile et Tablette -->
-  @if (isMobileMenuOpen()) {
-
-    <div class="lg:hidden bg-[#1B1464] text-white py-5 px-4 transition-transform duration-300 absolute top-full left-0 w-full z-30">
-      <a [routerLink]="'/'" (click)="navigateToSection('home')" class="block py-2 text-lg hover:text-[#FF3366]">Accueil</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('hero')" class="block py-2 text-lg hover:text-[#FF3366]">Présentation</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('services')" class="block py-2 text-lg hover:text-[#FF3366]">Services</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('solutions')" class="block py-2 text-lg hover:text-[#FF3366]">Solutions</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('projects')" class="block py-2 text-lg hover:text-[#FF3366]">Projets</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('news')" class="block py-2 text-lg hover:text-[#FF3366]">Actualités</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('methods')" class="block py-2 text-lg hover:text-[#FF3366]">Carrières</a>
-      <a [routerLink]="'/'" (click)="navigateToSection('partners')" class="block py-2 text-lg hover:text-[#FF3366]">Partenaires</a>
-    </div>
-  }
-  </nav>
+  <div *ngIf="isMobileMenuOpen()" class="lg:hidden bg-[#0190BD] text-white py-5 px-4 transition-transform duration-300 absolute top-full left-0 w-full z-30">
+    <a (click)="navigateToSection('home')" class="block py-2 text-lg hover:text-[#EB960B]">Accueil</a>
+    <a (click)="navigateToSection('hero')" class="block py-2 text-lg hover:text-[#EB960B]">Présentation</a>
+    <a (click)="navigateToSection('services')" class="block py-2 text-lg hover:text-[#EB960B]">Services</a>
+    <a (click)="navigateToSection('solutions')" class="block py-2 text-lg hover:text-[#EB960B]">Solutions</a>
+    <a (click)="navigateToSection('projects')" class="block py-2 text-lg hover:text-[#EB960B]">Projets</a>
+<!--    <a (click)="navigateToSection('news')" class="block py-2 text-lg hover:text-[#EB960B]">Actualités</a>-->
+    <a (click)="navigateToSection('realisations')" class="hover:text-[#EB960B] transition-colors font-bold cursor-pointer">
+      Realisations
+    </a>
+    <a (click)="navigateToSection('methods')" class="block py-2 text-lg hover:text-[#EB960B]">Méthodes</a>
+    <a (click)="navigateToSection('partners')" class="block py-2 text-lg hover:text-[#EB960B]">Partenaires</a>
+  </div>
+</nav>
