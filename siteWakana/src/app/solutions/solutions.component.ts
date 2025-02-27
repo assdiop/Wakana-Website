@@ -51,7 +51,7 @@ export class SolutionsComponent implements OnInit, OnDestroy {
         id: 4,
         title: 'Solution Efficace 4',
         description: 'Optimisez vos processus avec notre quatrième solution qui augmente la productivité tout en réduisant les coûts opérationnels de manière significative.',
-        imageUrl: 'assets/images/im7.jpg',
+        imageUrl: 'assets/images/img6.jpg',
       },
       {
         id: 5,
